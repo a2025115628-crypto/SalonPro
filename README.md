@@ -17,13 +17,13 @@ Construir un **MVP** que permita:
 
 ## Actores
 
-| Actor | Responsabilidad |
-|---|---|
+| Actor         | Responsabilidad                                            |
+| ------------- | ---------------------------------------------------------- |
 | Administrador | Configura servicios, profesionales, horarios y parámetros. |
-| Recepcionista | Agenda, reprograma y cancela citas. |
-| Profesional | Consulta su agenda y actualiza el estado de la atención. |
-| Cliente | Reserva, consulta y cancela citas según reglas. |
-| Supervisor | Consulta KPIs y excepciones. |
+| Recepcionista | Agenda, reprograma y cancela citas.                        |
+| Profesional   | Consulta su agenda y actualiza el estado de la atención.   |
+| Cliente       | Reserva, consulta y cancela citas según reglas.            |
+| Supervisor    | Consulta KPIs y excepciones.                               |
 
 ## Alcance del MVP
 
@@ -68,3 +68,5 @@ salonpro
     └── 03-decisions
         └── README.md
 ```
+
+=======
