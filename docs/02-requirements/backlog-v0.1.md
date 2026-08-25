@@ -2,140 +2,136 @@
 
 ## 1. Propósito
 
-Este documento presenta el backlog inicial del proyecto **SalonPro**, organizado a partir de la situación del cliente, los actores, el alcance funcional, las reglas de negocio y los requisitos funcionales definidos para el MVP.
+Este documento presenta el backlog inicial de **SalonPro**, construido a partir de la ficha oficial del proyecto y limitado al alcance contractual del MVP.
 
-El backlog se estructura mediante historias de usuario priorizadas en niveles **P0, P1 y P2**:
+La priorización indica **orden de implementación**, no obligatoriedad contractual:
 
-- **P0 — Crítico:** funcionalidades indispensables para que el flujo principal del sistema pueda operar.
-- **P1 — Importante:** funcionalidades necesarias para completar la operación del MVP.
-- **P2 — Complementario:** funcionalidades de consulta, supervisión y control que agregan valor al sistema.
+- **P0 — Flujo crítico:** necesario para demostrar el flujo principal extremo a extremo.
+- **P1 — Operación principal:** obligatorio para completar la operación del MVP, aunque no sea requisito previo para la primera demostración del flujo crítico.
+- **P2 — Cobertura posterior:** obligatorio dentro del alcance final, pero puede implementarse después del flujo principal.
 
-> **Nota de alcance:** se excluye cualquier funcionalidad relacionada con pasarelas bancarias, integración con bancos, cobros en línea o procesamiento externo de pagos. El proyecto únicamente contempla un **registro operativo simplificado de pagos** asociado a las citas.
+> **Alcance de pagos:** el MVP contempla únicamente **registro operativo de pago**. No incluye integración bancaria real, pasarela de pago ni procesamiento externo de cobros, conforme a RN-10.
 
 ---
 
 ## 2. Actores del sistema
 
 ### Administrador
-Configura servicios, profesionales, horarios y parámetros generales del sistema.
+Configura servicios, profesionales, horarios y parámetros.
 
 ### Recepcionista
-Agenda, reprograma, cancela citas y registra información operativa relacionada con la atención.
+Agenda, reprograma y cancela citas.
 
 ### Profesional
-Consulta su agenda y actualiza el estado de las atenciones asignadas.
+Consulta su agenda y actualiza la atención.
 
 ### Cliente
-Consulta disponibilidad, reserva citas y gestiona sus propias citas según las reglas establecidas.
+Reserva, consulta y cancela según las reglas del MVP.
 
 ### Supervisor
-Consulta indicadores operativos, ocupación y excepciones del sistema.
+Consulta KPIs y excepciones.
 
 ---
 
 # 3. Backlog priorizado
 
-## P0 — Prioridad crítica
+## P0 — Flujo crítico
 
 ### HU-01 — Gestionar profesionales
 
 **Como** administrador,  
-**quiero** registrar y gestionar profesionales,  
-**para** mantener actualizada la información del personal que presta servicios en el salón.
+**quiero** gestionar profesionales,  
+**para** mantener disponible la información necesaria para configurar su participación en la operación del salón.
 
 **Requisito relacionado:** RF-01 — Gestionar profesionales.
 
 **Criterios iniciales de aceptación:**
-- Debe permitirse registrar un profesional.
-- Debe permitirse actualizar su información.
-- El sistema debe poder identificar si el profesional está habilitado o no.
-- La información registrada debe quedar disponible para su posterior asociación con servicios y horarios.
+- Debe permitirse registrar profesionales.
+- Debe permitirse consultar y actualizar la información gestionada de un profesional.
+- La información del profesional debe poder utilizarse posteriormente al configurar horarios y asociaciones con servicios.
+- La habilitación para prestar un servicio no se determina de manera global en esta historia; se controla mediante la asociación Profesional–Servicio definida en RF-03 y RN-03.
 
 ---
 
 ### HU-02 — Gestionar servicios y duración
 
 **Como** administrador,  
-**quiero** registrar y gestionar servicios indicando su duración,  
-**para** establecer correctamente el tiempo requerido para cada cita.
+**quiero** gestionar servicios y su duración,  
+**para** que la agenda pueda calcular correctamente el tiempo requerido por una cita.
 
-**Requisito relacionado:** RF-02 — Gestionar servicios y duración.
-
+**Requisito relacionado:** RF-02 — Gestionar servicios y duración.  
 **Regla relacionada:** RN-02 — La duración de una cita depende del servicio seleccionado.
 
 **Criterios iniciales de aceptación:**
-- Debe permitirse registrar un servicio.
-- Todo servicio debe disponer de una duración definida.
-- Debe permitirse modificar la información del servicio.
-- La duración configurada debe ser utilizada al calcular la disponibilidad.
+- Debe permitirse registrar servicios.
+- Todo servicio utilizado para reservar debe tener una duración definida.
+- Debe permitirse consultar y actualizar la información del servicio.
+- La duración configurada debe utilizarse al calcular disponibilidad y validar citas.
 
 ---
 
 ### HU-03 — Asociar profesionales a servicios
 
 **Como** administrador,  
-**quiero** asociar profesionales con los servicios que pueden realizar,  
-**para** evitar que se asignen citas a profesionales no habilitados para un servicio.
+**quiero** asociar profesionales con los servicios para los que están habilitados,  
+**para** evitar asignaciones incompatibles.
 
-**Requisito relacionado:** RF-03 — Asociar profesionales a servicios.
-
+**Requisito relacionado:** RF-03 — Asociar profesionales a servicios.  
 **Regla relacionada:** RN-03 — Sólo profesionales habilitados para un servicio pueden ser asignados.
 
 **Criterios iniciales de aceptación:**
-- Debe poder asociarse uno o varios servicios a un profesional.
-- No debe permitirse asignar una cita a un profesional no habilitado para el servicio seleccionado.
-- Las asociaciones deben poder consultarse.
+- Debe poder registrarse la asociación entre un profesional y un servicio.
+- Las asociaciones registradas deben poder consultarse.
+- No debe permitirse asignar a una cita un profesional que no esté habilitado para el servicio correspondiente.
 
 ---
 
 ### HU-04 — Configurar horarios
 
 **Como** administrador,  
-**quiero** configurar los horarios de los profesionales,  
-**para** definir cuándo se encuentran disponibles para recibir citas.
+**quiero** configurar horarios,  
+**para** definir los periodos en los que puede existir disponibilidad para reservar.
 
 **Requisito relacionado:** RF-04 — Configurar horarios.
 
 **Criterios iniciales de aceptación:**
-- Debe poder definirse un horario para cada profesional.
-- Los horarios configurados deben influir en el cálculo de disponibilidad.
-- El sistema no debe ofrecer horarios fuera de la jornada configurada.
+- Deben poder registrarse horarios de trabajo aplicables a los profesionales.
+- Los horarios configurados deben participar en el cálculo de disponibilidad.
+- No deben ofrecerse slots fuera de los horarios configurados.
 
 ---
 
 ### HU-05 — Registrar bloqueos de agenda
 
 **Como** administrador,  
-**quiero** bloquear determinados horarios de un profesional,  
-**para** impedir que se generen reservas durante periodos no disponibles.
+**quiero** registrar bloqueos de agenda,  
+**para** impedir reservas en periodos temporalmente no disponibles.
 
-**Requisito relacionado:** RF-05 — Registrar bloqueos de agenda.
-
+**Requisito relacionado:** RF-05 — Registrar bloqueos de agenda.  
 **Regla relacionada:** RN-07 — Los horarios bloqueados no están disponibles para reserva.
 
 **Criterios iniciales de aceptación:**
-- Debe poder registrarse un bloqueo de horario.
-- Un horario bloqueado no debe aparecer como disponible.
-- El bloqueo debe quedar asociado al profesional correspondiente.
+- Debe poder registrarse un bloqueo aplicable a la agenda correspondiente.
+- Un periodo bloqueado no debe aparecer como disponible para reserva.
+- El bloqueo debe conservar la información necesaria para determinar el periodo afectado.
 
 ---
 
-### HU-06 — Consultar disponibilidad
+### HU-06 — Consultar slots disponibles
 
 **Como** cliente,  
-**quiero** consultar los horarios disponibles para un servicio,  
-**para** seleccionar una fecha y hora en la que pueda ser atendido.
+**quiero** consultar slots disponibles para un servicio,  
+**para** elegir una opción válida antes de reservar.
 
-**Requisito relacionado:** RF-06 — Consultar slots disponibles.
-
+**Requisito relacionado:** RF-06 — Consultar slots disponibles.  
 **Reglas relacionadas:** RN-01, RN-02, RN-03 y RN-07.
 
 **Criterios iniciales de aceptación:**
-- El sistema debe mostrar únicamente horarios realmente disponibles.
-- No debe mostrar horarios bloqueados.
-- Debe considerar la duración del servicio.
-- Debe considerar la disponibilidad del profesional.
-- Debe evitar horarios que generen solapamientos.
+- Deben mostrarse únicamente slots compatibles con los horarios configurados.
+- No deben mostrarse periodos bloqueados.
+- El cálculo debe considerar la duración del servicio seleccionado.
+- Sólo deben considerarse profesionales habilitados para el servicio.
+- No deben ofrecerse slots que produzcan solapamiento con citas existentes del mismo profesional.
 
 ---
 
@@ -143,86 +139,88 @@ Consulta indicadores operativos, ocupación y excepciones del sistema.
 
 **Como** recepcionista,  
 **quiero** registrar clientes,  
-**para** disponer de su información al momento de crear y gestionar citas.
+**para** asociarlos a sus citas y mantener su historial operativo.
 
 **Requisito relacionado:** RF-07 — Registrar clientes.
 
 **Criterios iniciales de aceptación:**
-- Debe poder registrarse un nuevo cliente.
-- La información del cliente debe poder consultarse posteriormente.
-- El cliente registrado debe poder asociarse a una o varias citas.
+- Debe poder registrarse un cliente.
+- La información registrada debe poder consultarse posteriormente.
+- Un cliente debe poder relacionarse con varias citas, conforme a RN-09.
 
 ---
 
-### HU-08 — Crear una cita
+### HU-08 — Crear cita
 
 **Como** cliente,  
-**quiero** reservar una cita para un servicio en un horario disponible,  
-**para** asegurar mi atención con un profesional habilitado.
+**quiero** crear una cita utilizando disponibilidad válida,  
+**para** reservar atención con un profesional habilitado.
 
-**Requisito relacionado:** RF-08 — Crear cita.
-
-**Reglas relacionadas:** RN-01, RN-02, RN-03, RN-05, RN-07, RN-08 y RN-09.
+**Requisito relacionado:** RF-08 — Crear cita.  
+**Reglas relacionadas:** RN-01, RN-02, RN-03, RN-05, RN-07 y RN-09.
 
 **Criterios iniciales de aceptación:**
-- No debe existir solapamiento para el mismo profesional.
-- La duración debe corresponder al servicio seleccionado.
-- El profesional debe estar habilitado para realizar el servicio.
-- No debe permitirse reservar un horario bloqueado.
-- La cita debe crearse con un estado válido.
-- La información de la cita debe conservarse en el sistema.
+- No debe existir solapamiento de citas para el mismo profesional.
+- La duración de la cita debe responder al servicio seleccionado.
+- El profesional asignado debe estar habilitado para el servicio correspondiente.
+- No debe permitirse reservar un periodo bloqueado.
+- La cita debe crearse en un estado permitido por el dominio.
+- Debe aplicarse el control configurable de solapamiento personal del cliente definido por RN-09.
+- La cita creada debe conservarse como parte del historial y no eliminarse físicamente por cambios posteriores.
 
 ---
 
-### HU-09 — Reprogramar una cita
+### HU-09 — Reprogramar cita
 
 **Como** recepcionista,  
 **quiero** reprogramar una cita,  
-**para** cambiar su fecha u horario cuando sea necesario sin perder su trazabilidad.
+**para** modificar su fecha u horario sin perder trazabilidad ni violar las reglas de disponibilidad.
 
-**Requisito relacionado:** RF-09 — Reprogramar cita.
+**Requisito relacionado:** RF-09 — Reprogramar cita.  
+**Reglas relacionadas:** RN-01, RN-02, RN-03, RN-05, RN-06, RN-07 y RN-09.
 
 **Criterios iniciales de aceptación:**
-- La nueva fecha y hora deben estar disponibles.
-- La reprogramación no debe generar solapamientos.
-- Debe conservarse la trazabilidad del cambio.
-- No debe eliminarse la cita histórica.
+- La nueva fecha y hora deben corresponder a disponibilidad válida.
+- La reprogramación no debe generar solapamiento para el profesional.
+- Debe respetarse la duración derivada del servicio seleccionado.
+- El profesional asignado debe continuar habilitado para el servicio correspondiente.
+- No debe reprogramarse sobre un periodo bloqueado.
+- Debe aplicarse el control configurable de solapamiento personal del cliente.
+- El cambio debe conservar trazabilidad y no debe eliminar el histórico de la cita.
 
 ---
 
-### HU-10 — Cancelar una cita con motivo
+### HU-10 — Cancelar cita con motivo
 
 **Como** recepcionista,  
-**quiero** cancelar una cita indicando el motivo,  
-**para** mantener actualizada la agenda y conservar evidencia de la cancelación.
+**quiero** cancelar una cita indicando un motivo,  
+**para** actualizar la agenda y conservar evidencia de la cancelación.
 
-**Requisito relacionado:** RF-10 — Cancelar cita con motivo.
-
+**Requisito relacionado:** RF-10 — Cancelar cita con motivo.  
 **Reglas relacionadas:** RN-04, RN-05 y RN-06.
 
 **Criterios iniciales de aceptación:**
-- Debe registrarse un motivo de cancelación.
-- La cita debe cambiar a un estado válido de cancelación.
-- Las cancelaciones tardías deben quedar registradas.
-- La cita cancelada no debe eliminarse del historial.
+- Debe registrarse el motivo de cancelación.
+- La cita debe pasar a un estado de cancelación permitido.
+- Si la cancelación es clasificada como tardía según la configuración o criterio que se defina para el MVP, esa condición debe quedar registrada.
+- La cita cancelada debe conservarse en el historial.
 
 ---
-
-## P1 — Prioridad importante
 
 ### HU-11 — Confirmar asistencia
 
 **Como** recepcionista,  
-**quiero** confirmar la asistencia de un cliente,  
-**para** registrar que la cita continúa hacia el proceso de atención.
+**quiero** confirmar la asistencia correspondiente a una cita,  
+**para** continuar el flujo operativo hacia la atención y fijar el precio aplicado.
 
-**Requisito relacionado:** RF-11 — Confirmar asistencia.
-
-**Regla relacionada:** RN-05 — La cita debe recorrer estados válidos.
+**Requisito relacionado:** RF-11 — Confirmar asistencia.  
+**Reglas relacionadas:** RN-05 y RN-08.
 
 **Criterios iniciales de aceptación:**
-- La cita debe existir.
+- La cita debe existir y encontrarse en una situación desde la que la confirmación sea válida.
 - El cambio de estado debe respetar las transiciones permitidas.
+- Al confirmar la cita, el **precio aplicado debe quedar congelado** conforme a RN-08.
+- Un cambio posterior en el precio configurado del servicio no debe modificar el precio ya aplicado a la cita confirmada.
 - La confirmación debe quedar registrada.
 
 ---
@@ -231,34 +229,16 @@ Consulta indicadores operativos, ocupación y excepciones del sistema.
 
 **Como** profesional,  
 **quiero** iniciar y finalizar la atención de una cita,  
-**para** reflejar correctamente el progreso del servicio realizado.
+**para** reflejar su ejecución real.
 
-**Requisito relacionado:** RF-12 — Iniciar y finalizar atención.
-
+**Requisito relacionado:** RF-12 — Iniciar y finalizar atención.  
 **Regla relacionada:** RN-05.
 
 **Criterios iniciales de aceptación:**
-- Sólo una cita válida puede iniciar atención.
-- El estado debe cambiar a "en atención" al comenzar.
-- El estado debe cambiar a "finalizada" al terminar.
-- Las transiciones deben respetar el flujo definido.
-
----
-
-### HU-13 — Registrar no asistencia
-
-**Como** profesional,  
-**quiero** registrar cuando un cliente no asiste a una cita,  
-**para** mantener actualizado el historial de atención.
-
-**Requisito relacionado:** RF-13 — Registrar no asistencia.
-
-**Reglas relacionadas:** RN-05 y RN-06.
-
-**Criterios iniciales de aceptación:**
-- La cita debe poder marcarse como "no asistió".
-- El cambio debe quedar registrado.
-- La cita debe conservarse en el historial.
+- Sólo una cita en un estado compatible puede iniciar atención.
+- Al iniciar, la cita debe pasar a **en atención**.
+- Al finalizar correctamente, la cita debe pasar a **finalizada**.
+- Todo cambio debe respetar las transiciones de estado permitidas.
 
 ---
 
@@ -266,19 +246,54 @@ Consulta indicadores operativos, ocupación y excepciones del sistema.
 
 **Como** recepcionista,  
 **quiero** registrar operativamente el pago asociado a una cita,  
-**para** mantener un control interno de los ingresos del salón.
+**para** mantener control interno de los ingresos operativos.
 
-**Requisito relacionado:** RF-14 — Registrar pago simplificado.
+**Requisito relacionado:** RF-14 — Registrar pago simplificado.  
+**Regla relacionada:** RN-10 — El pago del MVP es registro operativo, no integración bancaria real.
 
 **Criterios iniciales de aceptación:**
-- El pago debe estar asociado a una cita.
-- Debe poder registrarse el importe correspondiente.
-- El registro debe ser únicamente operativo dentro del sistema.
-- No se contempla integración con bancos, pasarelas de pago ni procesamiento de cobros externos.
+- El registro de pago debe quedar relacionado con la cita correspondiente.
+- Debe registrarse el importe operativo correspondiente.
+- El registro debe permanecer dentro del sistema como evidencia operativa.
+- No debe existir integración bancaria real, pasarela de pago ni procesamiento externo de cobros.
 
 ---
 
-### HU-15 — Consultar agenda diaria o semanal
+### HU-17 — Consultar ocupación e ingresos operativos
+
+**Como** supervisor,  
+**quiero** consultar ocupación e ingresos operativos,  
+**para** conocer el estado general de la operación del salón.
+
+**Requisito relacionado:** RF-17 — Mostrar ocupación e ingresos operativos.
+
+**Criterios iniciales de aceptación:**
+- Debe mostrarse información de ocupación derivada de datos reales del sistema.
+- Debe mostrarse información de ingresos operativos derivada de los registros de pago del MVP.
+- El dashboard debe reflejar el resultado del flujo crítico con datos persistidos.
+
+---
+
+## P1 — Operación principal
+
+### HU-13 — Registrar no asistencia
+
+**Como** profesional,  
+**quiero** registrar la no asistencia de un cliente,  
+**para** mantener correcto el estado y el historial de la cita.
+
+**Requisito relacionado:** RF-13 — Registrar no asistencia.  
+**Reglas relacionadas:** RN-05 y RN-06.
+
+**Criterios iniciales de aceptación:**
+- Una cita debe poder pasar al estado **no asistió** cuando corresponda.
+- La transición debe ser válida según las reglas de estado.
+- El cambio debe quedar registrado.
+- La cita debe conservarse en el historial.
+
+---
+
+### HU-15 — Consultar agenda diaria/semanal
 
 **Como** profesional,  
 **quiero** consultar mi agenda diaria o semanal,  
@@ -287,9 +302,9 @@ Consulta indicadores operativos, ocupación y excepciones del sistema.
 **Requisito relacionado:** RF-15 — Consultar agenda diaria/semanal.
 
 **Criterios iniciales de aceptación:**
-- Deben mostrarse las citas correspondientes al profesional.
-- La agenda debe poder consultarse por día o semana.
-- Debe visualizarse el estado actual de cada cita.
+- Deben mostrarse las citas correspondientes al profesional consultado.
+- Debe poder consultarse la agenda por día o por semana.
+- Debe mostrarse el estado vigente de cada cita.
 
 ---
 
@@ -297,89 +312,116 @@ Consulta indicadores operativos, ocupación y excepciones del sistema.
 
 **Como** recepcionista,  
 **quiero** consultar el historial de un cliente,  
-**para** revisar sus citas y atenciones anteriores.
+**para** revisar sus citas anteriores sin perder información histórica.
 
-**Requisito relacionado:** RF-16 — Consultar historial del cliente.
+**Requisito relacionado:** RF-16 — Consultar historial del cliente.  
+**Regla relacionada:** RN-06 — No se eliminan citas históricas.
 
 **Criterios iniciales de aceptación:**
-- Deben mostrarse las citas históricas del cliente.
-- Debe visualizarse el estado de cada cita.
-- Las citas históricas no deben eliminarse.
+- Deben mostrarse las citas históricas asociadas al cliente.
+- Debe mostrarse el estado registrado de cada cita.
+- Las citas históricas deben permanecer disponibles conforme a RN-06.
 
 ---
 
-## P2 — Prioridad complementaria
-
-### HU-17 — Consultar ocupación e ingresos operativos
-
-**Como** supervisor,  
-**quiero** consultar indicadores de ocupación e ingresos operativos,  
-**para** evaluar el funcionamiento general del salón.
-
-**Requisito relacionado:** RF-17 — Mostrar ocupación e ingresos operativos.
-
-**Criterios iniciales de aceptación:**
-- El sistema debe mostrar información de ocupación.
-- Debe reflejar información operativa derivada de las citas y registros internos.
-- Los indicadores deben utilizar datos reales del sistema.
-
----
+## P2 — Cobertura posterior obligatoria
 
 ### HU-18 — Auditar cambios de agenda
 
 **Como** supervisor,  
-**quiero** consultar los cambios realizados sobre la agenda,  
-**para** conocer qué modificaciones se realizaron, quién las realizó y cuándo.
+**quiero** consultar la trazabilidad de cambios de agenda,  
+**para** identificar qué ocurrió, quién realizó la operación y cuándo.
 
 **Requisito relacionado:** RF-18 — Auditar cambios de agenda.
 
 **Criterios iniciales de aceptación:**
-- Deben registrarse los cambios relevantes realizados sobre la agenda.
-- Debe existir trazabilidad de las operaciones críticas.
-- El sistema debe permitir identificar quién realizó el cambio y cuándo.
+- Los cambios de agenda definidos como auditables deben quedar registrados.
+- Debe conservarse información suficiente para identificar la operación realizada.
+- Debe poder identificarse quién realizó el cambio y cuándo.
+- La auditoría debe apoyar la trazabilidad de las operaciones críticas del proyecto.
 
 ---
 
-# 4. Reglas de negocio consideradas
+# 4. Reglas de negocio oficiales consideradas
 
-- **RN-01:** No puede existir solapamiento de citas para un mismo profesional.
-- **RN-02:** La duración de una cita depende del servicio seleccionado.
-- **RN-03:** Sólo profesionales habilitados para un servicio pueden ser asignados.
-- **RN-04:** Las cancelaciones tardías quedan registradas.
-- **RN-05:** Una cita confirmada debe recorrer estados válidos: reservada, confirmada, en atención, finalizada, cancelada o no asistió.
-- **RN-06:** No se eliminan citas históricas.
-- **RN-07:** Los horarios bloqueados no están disponibles para reserva.
-- **RN-08:** El valor operativo asociado a la cita queda definido al confirmarse.
-- **RN-09:** Un cliente puede tener varias citas, controlando el solapamiento personal configurable.
-- **RN-10:** El manejo de pagos se limita a un registro operativo interno del MVP.
-
----
-
-# 5. Flujo crítico asociado al backlog
-
-1. El administrador configura servicios.
-2. El administrador registra profesionales.
-3. El administrador asocia profesionales con servicios.
-4. El administrador configura horarios y bloqueos.
-5. El cliente consulta disponibilidad.
-6. El cliente crea una cita.
-7. La recepcionista confirma la cita.
-8. El profesional inicia la atención.
-9. El profesional finaliza la atención.
-10. Se registra internamente el pago simplificado.
-11. El supervisor consulta los indicadores de ocupación.
+- **RN-01.** No puede existir solapamiento de citas para un mismo profesional.
+- **RN-02.** La duración de una cita depende del servicio seleccionado.
+- **RN-03.** Sólo profesionales habilitados para un servicio pueden ser asignados.
+- **RN-04.** Las cancelaciones tardías quedan registradas.
+- **RN-05.** Una cita confirmada debe recorrer estados válidos: reservada, confirmada, en atención, finalizada/cancelada/no asistió.
+- **RN-06.** No se eliminan citas históricas.
+- **RN-07.** Los horarios bloqueados no están disponibles para reserva.
+- **RN-08.** El precio aplicado queda congelado al confirmar la cita.
+- **RN-09.** Un cliente puede tener varias citas, pero se controla solapamiento personal configurable.
+- **RN-10.** El pago del MVP es registro operativo, no integración bancaria real.
 
 ---
 
-# 6. Criterio de terminación del backlog v0.1
+# 5. Trazabilidad RF → Historia
 
-El backlog inicial se considera preparado para la Clase 01 cuando:
+| Requisito | Historia |
+|---|---|
+| RF-01 Gestionar profesionales | HU-01 |
+| RF-02 Gestionar servicios y duración | HU-02 |
+| RF-03 Asociar profesionales a servicios | HU-03 |
+| RF-04 Configurar horarios | HU-04 |
+| RF-05 Registrar bloqueos de agenda | HU-05 |
+| RF-06 Consultar slots disponibles | HU-06 |
+| RF-07 Registrar clientes | HU-07 |
+| RF-08 Crear cita | HU-08 |
+| RF-09 Reprogramar cita | HU-09 |
+| RF-10 Cancelar cita con motivo | HU-10 |
+| RF-11 Confirmar asistencia | HU-11 |
+| RF-12 Iniciar y finalizar atención | HU-12 |
+| RF-13 Registrar no asistencia | HU-13 |
+| RF-14 Registrar pago simplificado | HU-14 |
+| RF-15 Consultar agenda diaria/semanal | HU-15 |
+| RF-16 Consultar historial del cliente | HU-16 |
+| RF-17 Mostrar ocupación e ingresos operativos | HU-17 |
+| RF-18 Auditar cambios de agenda | HU-18 |
 
-- Las historias están redactadas desde la perspectiva de un actor.
-- Cada historia expresa una necesidad y un valor.
-- Las historias se encuentran priorizadas como P0, P1 o P2.
-- No se incluyen tareas puramente técnicas como historias de usuario.
-- Existe correspondencia con los requisitos funcionales oficiales.
-- Se respetan las reglas de negocio establecidas.
-- No se incorporan requisitos ajenos a la ficha oficial.
-- No se incluyen funcionalidades de pasarelas bancarias, integración bancaria ni cobros externos.
+---
+
+# 6. Trazabilidad RN → Historias principales
+
+| Regla | Historias donde se valida o aplica principalmente |
+|---|---|
+| RN-01 | HU-06, HU-08, HU-09 |
+| RN-02 | HU-02, HU-06, HU-08, HU-09 |
+| RN-03 | HU-03, HU-06, HU-08, HU-09 |
+| RN-04 | HU-10 |
+| RN-05 | HU-08, HU-09, HU-10, HU-11, HU-12, HU-13 |
+| RN-06 | HU-09, HU-10, HU-13, HU-16 |
+| RN-07 | HU-05, HU-06, HU-08, HU-09 |
+| RN-08 | HU-11 |
+| RN-09 | HU-07, HU-08, HU-09 |
+| RN-10 | HU-14 |
+
+---
+
+# 7. Flujo crítico oficial asociado al backlog
+
+1. El administrador configura servicio, profesional y horario.
+2. El cliente consulta disponibilidad.
+3. El cliente reserva una cita.
+4. La recepcionista confirma.
+5. El profesional inicia la atención.
+6. El profesional finaliza la atención.
+7. Se registra el pago operativo.
+8. El dashboard refleja ocupación.
+
+Este flujo está cubierto principalmente por HU-01, HU-02, HU-03, HU-04, HU-06, HU-08, HU-11, HU-12, HU-14 y HU-17.
+
+---
+
+# 8. Criterio de cierre del backlog v0.1
+
+El backlog v0.1 queda cerrado para esta etapa cuando:
+
+- Los 18 requisitos funcionales oficiales tienen una historia correspondiente.
+- Las 10 reglas de negocio oficiales están representadas sin alterar su significado.
+- Las historias se expresan desde un actor, una necesidad y un valor.
+- Las prioridades representan orden de implementación y no eliminan requisitos obligatorios del MVP.
+- No se han añadido integraciones bancarias ni funcionalidades externas no previstas.
+- Los criterios de aceptación no introducen reglas incompatibles con la ficha oficial.
+- El flujo crítico completo puede recorrerse utilizando las historias definidas.
