@@ -1,5 +1,6 @@
 package com.salonpro.shared.web;
 
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import com.salonpro.rol.domain.exception.NombreRolDuplicadoException;
 import com.salonpro.rol.domain.exception.RolConUsuariosAsociadosException;
 import com.salonpro.rol.domain.exception.RolNoEncontradoException;
@@ -23,6 +24,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RolNoEncontradoException.class)
     public ResponseEntity<ApiError> handleRolNoEncontrado(RolNoEncontradoException ex, HttpServletRequest request) {
         return build(HttpStatus.NOT_FOUND, ex.getMessage(), request, Map.of());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiError> handleJsonInvalido(HttpMessageNotReadableException ex, HttpServletRequest request) {
+        return build(HttpStatus.BAD_REQUEST, "El cuerpo de la petición no es un JSON válido", request, Map.of());
     }
 
     @ExceptionHandler(UsuarioNoEncontradoException.class)
