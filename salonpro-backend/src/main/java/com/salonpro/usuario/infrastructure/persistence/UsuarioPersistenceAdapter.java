@@ -76,4 +76,14 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort {
     public boolean existePorEmail(String email) {
         return repository.existsByEmail(email);
     }
+
+    @Override
+    public boolean existePorEmailYOtroId(String email, Long id) {
+        return repository.existsByEmailAndIdNot(email, id);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        repository.deleteById(id);
+    }
 }

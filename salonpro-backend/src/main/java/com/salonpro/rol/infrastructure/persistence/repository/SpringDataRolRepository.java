@@ -7,4 +7,6 @@ public interface SpringDataRolRepository
         extends JpaRepository<RolJpaEntity, Long> {
 
     boolean existsByNombreRol(String nombreRol);
+
+    boolean existsByNombreRolAndIdNot(String nombreRol, Long id);
 }

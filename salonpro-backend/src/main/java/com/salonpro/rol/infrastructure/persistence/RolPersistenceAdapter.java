@@ -1,9 +1,11 @@
 package com.salonpro.rol.infrastructure.persistence;
 
+import com.salonpro.rol.domain.exception.RolConUsuariosAsociadosException;
 import com.salonpro.rol.domain.model.Rol;
 import com.salonpro.rol.domain.port.out.RolRepositoryPort;
 import com.salonpro.rol.infrastructure.persistence.mapper.RolPersistenceMapper;
 import com.salonpro.rol.infrastructure.persistence.repository.SpringDataRolRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -42,5 +44,20 @@ public class RolPersistenceAdapter implements RolRepositoryPort {
     @Override
     public boolean existePorNombreRol(String nombreRol) {
         return repository.existsByNombreRol(nombreRol);
+    }
+
+    @Override
+    public boolean existePorNombreRolYOtroId(String nombreRol, Long id) {
+        return repository.existsByNombreRolAndIdNot(nombreRol, id);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        try {
+            repository.deleteById(id);
+            repository.flush();
+        } catch (DataIntegrityViolationException ex) {
+            throw new RolConUsuariosAsociadosException(id);
+        }
     }
 }

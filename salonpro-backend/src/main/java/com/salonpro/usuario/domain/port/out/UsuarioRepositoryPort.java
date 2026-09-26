@@ -16,4 +16,8 @@ public interface UsuarioRepositoryPort {
     List<Usuario> listarPorRolId(Long rolId);
 
     boolean existePorEmail(String email);
+
+    boolean existePorEmailYOtroId(String email, Long id);
+
+    void eliminar(Long id);
 }

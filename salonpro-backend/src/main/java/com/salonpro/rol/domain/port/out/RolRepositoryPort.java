@@ -14,4 +14,8 @@ public interface RolRepositoryPort {
     List<Rol> listarTodos();
 
     boolean existePorNombreRol(String nombreRol);
+
+    boolean existePorNombreRolYOtroId(String nombreRol, Long id);
+
+    void eliminar(Long id);
 }

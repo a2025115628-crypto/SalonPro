@@ -10,5 +10,7 @@ public interface SpringDataUsuarioRepository
 
     boolean existsByEmail(String email);
 
+    boolean existsByEmailAndIdNot(String email, Long id);
+
     List<UsuarioJpaEntity> findByRol_Id(Long rolId);
 }
