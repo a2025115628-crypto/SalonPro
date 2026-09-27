@@ -43,6 +43,8 @@ Consulta KPIs y excepciones.
 **quiero** gestionar profesionales,  
 **para** mantener disponible la información necesaria para configurar su participación en la operación del salón.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-01 — Gestionar profesionales.
 
 **Criterios iniciales de aceptación:**
@@ -58,6 +60,8 @@ Consulta KPIs y excepciones.
 **Como** administrador,  
 **quiero** gestionar servicios y su duración,  
 **para** que la agenda pueda calcular correctamente el tiempo requerido por una cita.
+
+**Prioridad:** P0
 
 **Requisito relacionado:** RF-02 — Gestionar servicios y duración.  
 **Regla relacionada:** RN-02 — La duración de una cita depende del servicio seleccionado.
@@ -76,6 +80,8 @@ Consulta KPIs y excepciones.
 **quiero** asociar profesionales con los servicios para los que están habilitados,  
 **para** evitar asignaciones incompatibles.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-03 — Asociar profesionales a servicios.  
 **Regla relacionada:** RN-03 — Sólo profesionales habilitados para un servicio pueden ser asignados.
 
@@ -92,6 +98,8 @@ Consulta KPIs y excepciones.
 **quiero** configurar horarios,  
 **para** definir los periodos en los que puede existir disponibilidad para reservar.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-04 — Configurar horarios.
 
 **Criterios iniciales de aceptación:**
@@ -106,6 +114,8 @@ Consulta KPIs y excepciones.
 **Como** administrador,  
 **quiero** registrar bloqueos de agenda,  
 **para** impedir reservas en periodos temporalmente no disponibles.
+
+**Prioridad:** P0
 
 **Requisito relacionado:** RF-05 — Registrar bloqueos de agenda.  
 **Regla relacionada:** RN-07 — Los horarios bloqueados no están disponibles para reserva.
@@ -122,6 +132,8 @@ Consulta KPIs y excepciones.
 **Como** cliente,  
 **quiero** consultar slots disponibles para un servicio,  
 **para** elegir una opción válida antes de reservar.
+
+**Prioridad:** P0
 
 **Requisito relacionado:** RF-06 — Consultar slots disponibles.  
 **Reglas relacionadas:** RN-01, RN-02, RN-03 y RN-07.
@@ -141,6 +153,8 @@ Consulta KPIs y excepciones.
 **quiero** registrar clientes,  
 **para** asociarlos a sus citas y mantener su historial operativo.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-07 — Registrar clientes.
 
 **Criterios iniciales de aceptación:**
@@ -155,6 +169,8 @@ Consulta KPIs y excepciones.
 **Como** cliente,  
 **quiero** crear una cita utilizando disponibilidad válida,  
 **para** reservar atención con un profesional habilitado.
+
+**Prioridad:** P0
 
 **Requisito relacionado:** RF-08 — Crear cita.  
 **Reglas relacionadas:** RN-01, RN-02, RN-03, RN-05, RN-07 y RN-09.
@@ -176,6 +192,8 @@ Consulta KPIs y excepciones.
 **quiero** reprogramar una cita,  
 **para** modificar su fecha u horario sin perder trazabilidad ni violar las reglas de disponibilidad.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-09 — Reprogramar cita.  
 **Reglas relacionadas:** RN-01, RN-02, RN-03, RN-05, RN-06, RN-07 y RN-09.
 
@@ -196,6 +214,8 @@ Consulta KPIs y excepciones.
 **quiero** cancelar una cita indicando un motivo,  
 **para** actualizar la agenda y conservar evidencia de la cancelación.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-10 — Cancelar cita con motivo.  
 **Reglas relacionadas:** RN-04, RN-05 y RN-06.
 
@@ -212,6 +232,8 @@ Consulta KPIs y excepciones.
 **Como** recepcionista,  
 **quiero** confirmar la asistencia correspondiente a una cita,  
 **para** continuar el flujo operativo hacia la atención y fijar el precio aplicado.
+
+**Prioridad:** P0
 
 **Requisito relacionado:** RF-11 — Confirmar asistencia.  
 **Reglas relacionadas:** RN-05 y RN-08.
@@ -231,6 +253,8 @@ Consulta KPIs y excepciones.
 **quiero** iniciar y finalizar la atención de una cita,  
 **para** reflejar su ejecución real.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-12 — Iniciar y finalizar atención.  
 **Regla relacionada:** RN-05.
 
@@ -247,6 +271,8 @@ Consulta KPIs y excepciones.
 **Como** recepcionista,  
 **quiero** registrar operativamente el pago asociado a una cita,  
 **para** mantener control interno de los ingresos operativos.
+
+**Prioridad:** P0
 
 **Requisito relacionado:** RF-14 — Registrar pago simplificado.  
 **Regla relacionada:** RN-10 — El pago del MVP es registro operativo, no integración bancaria real.
@@ -265,6 +291,8 @@ Consulta KPIs y excepciones.
 **quiero** consultar ocupación e ingresos operativos,  
 **para** conocer el estado general de la operación del salón.
 
+**Prioridad:** P0
+
 **Requisito relacionado:** RF-17 — Mostrar ocupación e ingresos operativos.
 
 **Criterios iniciales de aceptación:**
@@ -281,6 +309,8 @@ Consulta KPIs y excepciones.
 **Como** profesional,  
 **quiero** registrar la no asistencia de un cliente,  
 **para** mantener correcto el estado y el historial de la cita.
+
+**Prioridad:** P1
 
 **Requisito relacionado:** RF-13 — Registrar no asistencia.  
 **Reglas relacionadas:** RN-05 y RN-06.
@@ -299,6 +329,8 @@ Consulta KPIs y excepciones.
 **quiero** consultar mi agenda diaria o semanal,  
 **para** conocer las citas que debo atender.
 
+**Prioridad:** P1
+
 **Requisito relacionado:** RF-15 — Consultar agenda diaria/semanal.
 
 **Criterios iniciales de aceptación:**
@@ -313,6 +345,8 @@ Consulta KPIs y excepciones.
 **Como** recepcionista,  
 **quiero** consultar el historial de un cliente,  
 **para** revisar sus citas anteriores sin perder información histórica.
+
+**Prioridad:** P1
 
 **Requisito relacionado:** RF-16 — Consultar historial del cliente.  
 **Regla relacionada:** RN-06 — No se eliminan citas históricas.
@@ -331,6 +365,8 @@ Consulta KPIs y excepciones.
 **Como** supervisor,  
 **quiero** consultar la trazabilidad de cambios de agenda,  
 **para** identificar qué ocurrió, quién realizó la operación y cuándo.
+
+**Prioridad:** P2
 
 **Requisito relacionado:** RF-18 — Auditar cambios de agenda.
 
