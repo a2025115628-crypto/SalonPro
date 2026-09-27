@@ -53,6 +53,13 @@ Consulta KPIs y excepciones.
 - La información del profesional debe poder utilizarse posteriormente al configurar horarios y asociaciones con servicios.
 - La habilitación para prestar un servicio no se determina de manera global en esta historia; se controla mediante la asociación Profesional–Servicio definida en RF-03 y RN-03.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Registrar profesional
+**Dado** que el administrador completa los datos requeridos de un profesional,  
+**cuando** registra al profesional,  
+**entonces** el sistema debe guardarlo y permitir consultarlo y actualizarlo posteriormente.
+
 ---
 
 ### HU-02 — Gestionar servicios y duración
@@ -72,6 +79,13 @@ Consulta KPIs y excepciones.
 - Debe permitirse consultar y actualizar la información del servicio.
 - La duración configurada debe utilizarse al calcular disponibilidad y validar citas.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Registrar servicio con duración
+**Dado** que el administrador define un servicio indicando su duración,  
+**cuando** registra el servicio,  
+**entonces** el sistema debe guardar la duración para utilizarla en el cálculo de disponibilidad.
+
 ---
 
 ### HU-03 — Asociar profesionales a servicios
@@ -90,6 +104,18 @@ Consulta KPIs y excepciones.
 - Las asociaciones registradas deben poder consultarse.
 - No debe permitirse asignar a una cita un profesional que no esté habilitado para el servicio correspondiente.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Asociar profesional a servicio
+**Dado** que existen un profesional y un servicio registrados,  
+**cuando** el administrador asocia al profesional con el servicio,  
+**entonces** la asociación debe quedar registrada y disponible para consulta.
+
+### Escenario: Evitar asignación no habilitada
+**Dado** que un profesional no está asociado (habilitado) a un servicio,  
+**cuando** se intenta asignar ese profesional a una cita de ese servicio,  
+**entonces** el sistema debe rechazar la asignación, conforme a RN-03.
+
 ---
 
 ### HU-04 — Configurar horarios
@@ -106,6 +132,13 @@ Consulta KPIs y excepciones.
 - Deben poder registrarse horarios de trabajo aplicables a los profesionales.
 - Los horarios configurados deben participar en el cálculo de disponibilidad.
 - No deben ofrecerse slots fuera de los horarios configurados.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Configurar horario de trabajo
+**Dado** que el administrador define un horario de trabajo para un profesional,  
+**cuando** registra el horario,  
+**entonces** ese horario debe participar en el cálculo de disponibilidad y no deben ofrecerse slots fuera de él.
 
 ---
 
@@ -124,6 +157,18 @@ Consulta KPIs y excepciones.
 - Debe poder registrarse un bloqueo aplicable a la agenda correspondiente.
 - Un periodo bloqueado no debe aparecer como disponible para reserva.
 - El bloqueo debe conservar la información necesaria para determinar el periodo afectado.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Registrar bloqueo de agenda
+**Dado** que el administrador indica un periodo a bloquear en la agenda de un profesional,  
+**cuando** registra el bloqueo,  
+**entonces** el sistema debe guardarlo conservando la información del periodo afectado.
+
+### Escenario: Rechazar reserva sobre periodo bloqueado
+**Dado** que existe un bloqueo registrado para un periodo de la agenda de un profesional,  
+**cuando** se intenta ofrecer u ocupar ese periodo con una reserva,  
+**entonces** el sistema no debe mostrarlo ni permitirlo como disponible, conforme a RN-07.
 
 ---
 
@@ -145,6 +190,18 @@ Consulta KPIs y excepciones.
 - Sólo deben considerarse profesionales habilitados para el servicio.
 - No deben ofrecerse slots que produzcan solapamiento con citas existentes del mismo profesional.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Mostrar slot disponible válido
+**Dado** que un profesional está habilitado para un servicio, tiene horario configurado y no tiene bloqueos ni citas que se solapen en un periodo,  
+**cuando** el cliente consulta slots disponibles para ese servicio,  
+**entonces** el sistema debe mostrar ese periodo como slot disponible.
+
+### Escenario: Excluir periodos bloqueados o con solapamiento
+**Dado** que un periodo se encuentra dentro de un bloqueo de agenda o generaría solapamiento con una cita existente del profesional,  
+**cuando** el cliente consulta slots disponibles,  
+**entonces** ese periodo no debe aparecer entre los slots ofrecidos.
+
 ---
 
 ### HU-07 — Registrar clientes
@@ -161,6 +218,13 @@ Consulta KPIs y excepciones.
 - Debe poder registrarse un cliente.
 - La información registrada debe poder consultarse posteriormente.
 - Un cliente debe poder relacionarse con varias citas, conforme a RN-09.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Registrar cliente
+**Dado** que la recepcionista completa los datos requeridos de un cliente,  
+**cuando** lo registra,  
+**entonces** el sistema debe guardarlo y permitir consultarlo posteriormente.
 
 ---
 
@@ -184,6 +248,18 @@ Consulta KPIs y excepciones.
 - Debe aplicarse el control configurable de solapamiento personal del cliente definido por RN-09.
 - La cita creada debe conservarse como parte del historial y no eliminarse físicamente por cambios posteriores.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Crear cita correctamente
+**Dado** que el profesional está disponible y se encuentra habilitado para realizar el servicio,  
+**cuando** el cliente solicita una cita para ese horario,  
+**entonces** el sistema debe registrar la cita.
+
+### Escenario: Evitar solapamiento
+**Dado** que un profesional ya posee una cita de 10:00 a 11:00,  
+**cuando** se intenta registrar otra cita para el mismo profesional a las 10:30,  
+**entonces** el sistema debe rechazar la nueva cita.
+
 ---
 
 ### HU-09 — Reprogramar cita
@@ -206,6 +282,18 @@ Consulta KPIs y excepciones.
 - Debe aplicarse el control configurable de solapamiento personal del cliente.
 - El cambio debe conservar trazabilidad y no debe eliminar el histórico de la cita.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Reprogramar a horario válido
+**Dado** que existe una cita reservada y el nuevo horario solicitado corresponde a disponibilidad válida para el mismo profesional,  
+**cuando** la recepcionista reprograma la cita a ese horario,  
+**entonces** el sistema debe actualizar la fecha/hora conservando la trazabilidad de la cita.
+
+### Escenario: Rechazar reprogramación con solapamiento
+**Dado** que el nuevo horario solicitado se solapa con otra cita existente del mismo profesional,  
+**cuando** se intenta reprogramar la cita a ese horario,  
+**entonces** el sistema debe rechazar la reprogramación.
+
 ---
 
 ### HU-10 — Cancelar cita con motivo
@@ -224,6 +312,18 @@ Consulta KPIs y excepciones.
 - La cita debe pasar a un estado de cancelación permitido.
 - Si la cancelación es clasificada como tardía según la configuración o criterio que se defina para el MVP, esa condición debe quedar registrada.
 - La cita cancelada debe conservarse en el historial.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Cancelar cita con motivo
+**Dado** que existe una cita en un estado que permite cancelación,  
+**cuando** la recepcionista cancela la cita indicando un motivo,  
+**entonces** el sistema debe registrar el motivo, pasar la cita a un estado de cancelación y conservarla en el historial.
+
+### Escenario: Registrar cancelación tardía
+**Dado** que la cancelación se realiza dentro del margen definido como tardío,  
+**cuando** se registra la cancelación,  
+**entonces** el sistema debe marcar esa condición como cancelación tardía, conforme a RN-04.
 
 ---
 
@@ -245,6 +345,18 @@ Consulta KPIs y excepciones.
 - Un cambio posterior en el precio configurado del servicio no debe modificar el precio ya aplicado a la cita confirmada.
 - La confirmación debe quedar registrada.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Confirmar asistencia y congelar precio
+**Dado** que una cita se encuentra en un estado desde el cual la confirmación es válida,  
+**cuando** la recepcionista confirma la asistencia,  
+**entonces** el sistema debe cambiar el estado de la cita y congelar el precio aplicado, conforme a RN-08.
+
+### Escenario: No alterar precio ya congelado
+**Dado** que una cita ya fue confirmada y su precio quedó congelado,  
+**cuando** el precio configurado del servicio cambia posteriormente,  
+**entonces** el precio ya aplicado a esa cita no debe modificarse.
+
 ---
 
 ### HU-12 — Iniciar y finalizar atención
@@ -263,6 +375,18 @@ Consulta KPIs y excepciones.
 - Al iniciar, la cita debe pasar a **en atención**.
 - Al finalizar correctamente, la cita debe pasar a **finalizada**.
 - Todo cambio debe respetar las transiciones de estado permitidas.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Iniciar atención
+**Dado** que una cita se encuentra en un estado compatible para iniciar atención,  
+**cuando** el profesional inicia la atención,  
+**entonces** la cita debe pasar al estado "en atención".
+
+### Escenario: Finalizar atención
+**Dado** que una cita se encuentra en estado "en atención",  
+**cuando** el profesional finaliza la atención correctamente,  
+**entonces** la cita debe pasar al estado "finalizada".
 
 ---
 
@@ -283,6 +407,13 @@ Consulta KPIs y excepciones.
 - El registro debe permanecer dentro del sistema como evidencia operativa.
 - No debe existir integración bancaria real, pasarela de pago ni procesamiento externo de cobros.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Registrar pago operativo
+**Dado** que existe una cita en un estado que admite registro de pago,  
+**cuando** la recepcionista registra el pago operativo asociado,  
+**entonces** el sistema debe guardar el importe relacionado con la cita como evidencia operativa, sin procesar cobros mediante pasarela ni integración bancaria, conforme a RN-10.
+
 ---
 
 ### HU-17 — Consultar ocupación e ingresos operativos
@@ -299,6 +430,13 @@ Consulta KPIs y excepciones.
 - Debe mostrarse información de ocupación derivada de datos reales del sistema.
 - Debe mostrarse información de ingresos operativos derivada de los registros de pago del MVP.
 - El dashboard debe reflejar el resultado del flujo crítico con datos persistidos.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Mostrar ocupación e ingresos
+**Dado** que existen citas y pagos registrados en el sistema,  
+**cuando** el supervisor consulta el dashboard,  
+**entonces** el sistema debe mostrar la ocupación y los ingresos operativos calculados a partir de esos datos reales.
 
 ---
 
@@ -321,6 +459,13 @@ Consulta KPIs y excepciones.
 - El cambio debe quedar registrado.
 - La cita debe conservarse en el historial.
 
+**Escenarios (Given-When-Then):**
+
+### Escenario: Registrar no asistencia
+**Dado** que una cita se encuentra en un estado desde el cual puede registrarse la no asistencia,  
+**cuando** el profesional marca la no asistencia del cliente,  
+**entonces** la cita debe pasar al estado "no asistió" y conservarse en el historial.
+
 ---
 
 ### HU-15 — Consultar agenda diaria/semanal
@@ -337,6 +482,13 @@ Consulta KPIs y excepciones.
 - Deben mostrarse las citas correspondientes al profesional consultado.
 - Debe poder consultarse la agenda por día o por semana.
 - Debe mostrarse el estado vigente de cada cita.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Consultar agenda del profesional
+**Dado** que un profesional tiene citas registradas para un día o una semana,  
+**cuando** consulta su agenda para ese período,  
+**entonces** el sistema debe mostrar las citas correspondientes junto con el estado vigente de cada una.
 
 ---
 
@@ -355,6 +507,13 @@ Consulta KPIs y excepciones.
 - Deben mostrarse las citas históricas asociadas al cliente.
 - Debe mostrarse el estado registrado de cada cita.
 - Las citas históricas deben permanecer disponibles conforme a RN-06.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Consultar historial sin pérdida de información
+**Dado** que un cliente tiene citas registradas, incluyendo citas pasadas,  
+**cuando** la recepcionista consulta el historial de ese cliente,  
+**entonces** el sistema debe mostrar todas las citas históricas sin que ninguna haya sido eliminada, conforme a RN-06.
 
 ---
 
@@ -375,6 +534,13 @@ Consulta KPIs y excepciones.
 - Debe conservarse información suficiente para identificar la operación realizada.
 - Debe poder identificarse quién realizó el cambio y cuándo.
 - La auditoría debe apoyar la trazabilidad de las operaciones críticas del proyecto.
+
+**Escenarios (Given-When-Then):**
+
+### Escenario: Auditar cambio de agenda
+**Dado** que se realiza un cambio auditable sobre la agenda (por ejemplo, una reprogramación o cancelación),  
+**cuando** el cambio se ejecuta,  
+**entonces** el sistema debe registrar quién lo realizó y cuándo, de forma consultable.
 
 ---
 
