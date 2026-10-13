@@ -1,0 +1,52 @@
+.dashboard-metrics {
+    display: grid;
+    grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    );
+
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.metric-card {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.5rem;
+
+    padding: 1.25rem;
+
+    border:
+            1px solid var(--color-border);
+
+    border-radius:
+            var(--radius-md);
+
+    background:
+            var(--color-surface);
+
+    color: #111827;
+
+    box-shadow:
+            var(--shadow-md);
+}
+
+.metric-card__label {
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    color:
+            var(--color-muted);
+}
+
+.metric-card__value {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.metric-card__helper {
+    color:
+            var(--color-muted);
+}

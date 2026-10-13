@@ -1,0 +1,199 @@
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.field__label {
+    font-weight: 600;
+}
+
+.field input,
+.field select {
+    min-height: 42px;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    background: #ffffff;
+    color: #111827;
+
+    font: inherit;
+}
+
+.field input::placeholder {
+    color: #667085;
+}
+
+.field select option {
+    background: #ffffff;
+    color: #111827;
+}
+
+.field input:focus,
+.field select:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.btn {
+    min-height: 40px;
+    padding: 0.65rem 1rem;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    cursor: pointer;
+
+    font: inherit;
+    font-weight: 600;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn--primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.btn--secondary {
+    background: var(--color-surface);
+    color: #111827;
+    border-color: var(--color-border);
+}
+
+.btn--danger {
+    background: var(--color-danger);
+    color: white;
+}
+
+.btn--ghost {
+    background: transparent;
+    color: inherit;
+    border-color: var(--color-border);
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: var(--space-4);
+
+    margin-top: var(--space-4);
+
+    flex-wrap: wrap;
+}
+
+.empty-state {
+    margin-top: var(--space-4);
+
+    padding: var(--space-6);
+
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+
+    text-align: center;
+}
+
+.empty-state p {
+    margin-bottom: 0;
+    color: var(--color-muted);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 28px;
+
+    padding: 0.2rem 0.6rem;
+
+    border-radius: 999px;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.badge--active {
+    color: var(--color-success);
+    border: 1px solid currentColor;
+}
+
+.badge--inactive {
+    color: var(--color-muted);
+    border: 1px solid currentColor;
+}
+
+.modal {
+    width: min(
+            520px,
+            calc(100% - 2rem)
+    );
+
+    padding: 0;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: #ffffff;
+    color: #111827;
+
+    box-shadow: var(--shadow-md);
+}
+
+.modal::backdrop {
+    background: rgba(
+            0,
+            0,
+            0,
+            0.45
+    );
+}
+
+.modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: var(--space-4);
+
+    padding: var(--space-4);
+
+    border-bottom:
+            1px solid var(--color-border);
+}
+
+.modal__header h2 {
+    margin: 0;
+}
+
+.modal__header button {
+    border: 0;
+
+    background: transparent;
+    color: #111827;
+
+    font-size: 1.5rem;
+
+    cursor: pointer;
+}
+
+.modal > p,
+.modal > form,
+.modal > div:not(.modal__header) {
+    margin-left: var(--space-4);
+    margin-right: var(--space-4);
+}
+
+.modal__actions {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: var(--space-3);
+
+    padding: var(--space-4) 0;
+}
